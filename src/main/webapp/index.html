@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Proyectos Estudiantiles</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <header class="hero">
+        <div>
+            <h1>Sistema de Gestión de Proyectos Estudiantiles</h1>
+            <p class="hero-text">Administra estudiantes, docentes, proyectos, actividades y entregables.</p>
+        </div>
+       
+    </header>
+
+    <section class="summary-grid">
+        <article class="summary-card"><span>Estudiantes</span><strong id="countEstudiantes">0</strong></article>
+        <article class="summary-card"><span>Docentes</span><strong id="countDocentes">0</strong></article>
+        <article class="summary-card"><span>Proyectos</span><strong id="countProyectos">0</strong></article>
+        <article class="summary-card"><span>Actividades</span><strong id="countActividades">0</strong></article>
+        <article class="summary-card"><span>Entregables</span><strong id="countEntregables">0</strong></article>
+    </section>
+
+    <nav class="tabs">
+        <button class="tab active" data-section="estudiantesSection">Estudiantes</button>
+        <button class="tab" data-section="docentesSection">Docentes</button>
+        <button class="tab" data-section="proyectosSection">Proyectos</button>
+        <button class="tab" data-section="actividadesSection">Actividades</button>
+        <button class="tab" data-section="entregablesSection">Entregables</button>
+    </nav>
+
+    <div id="messageBox" class="message hidden"></div>
+
+    <main>
+        <section id="estudiantesSection" class="content-section active-section">
+            <div class="panel-grid">
+                <div class="card">
+                    <h2>Formulario de estudiante</h2>
+                    <form id="estudianteForm">
+                        <input type="hidden" id="estudianteId">
+                        <label>Nombre</label>
+                        <input type="text" id="estudianteNombre" required>
+                        <label>Correo</label>
+                        <input type="email" id="estudianteCorreo" required>
+                        <label>Programa académico</label>
+                        <input type="text" id="estudiantePrograma" required>
+                        <div class="form-actions">
+                            <button type="submit">Guardar</button>
+                            <button type="button" class="secondary" onclick="limpiarEstudianteForm()">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2>Listado de estudiantes</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Programa</th><th>Acciones</th></tr>
+                            </thead>
+                            <tbody id="estudiantesTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="docentesSection" class="content-section">
+            <div class="panel-grid">
+                <div class="card">
+                    <h2>Formulario de docente</h2>
+                    <form id="docenteForm">
+                        <input type="hidden" id="docenteId">
+                        <label>Nombre</label>
+                        <input type="text" id="docenteNombre" required>
+                        <label>Correo</label>
+                        <input type="email" id="docenteCorreo" required>
+                        <label>Área</label>
+                        <input type="text" id="docenteArea" required>
+                        <div class="form-actions">
+                            <button type="submit">Guardar</button>
+                            <button type="button" class="secondary" onclick="limpiarDocenteForm()">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2>Listado de docentes</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Área</th><th>Acciones</th></tr>
+                            </thead>
+                            <tbody id="docentesTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectosSection" class="content-section">
+            <div class="panel-grid">
+                <div class="card">
+                    <h2>Formulario de proyecto</h2>
+                    <form id="proyectoForm">
+                        <input type="hidden" id="proyectoId">
+                        <label>Nombre</label>
+                        <input type="text" id="proyectoNombre" required>
+                        <label>Descripción</label>
+                        <textarea id="proyectoDescripcion" required></textarea>
+                        <label>Objetivos</label>
+                        <textarea id="proyectoObjetivos" required></textarea>
+                        <label>Fecha inicio</label>
+                        <input type="date" id="proyectoFechaInicio" required>
+                        <label>Fecha fin</label>
+                        <input type="date" id="proyectoFechaFin" required>
+                        <label>Docente responsable</label>
+                        <select id="proyectoDocente" required></select>
+                        <div class="form-actions">
+                            <button type="submit">Guardar</button>
+                            <button type="button" class="secondary" onclick="limpiarProyectoForm()">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2>Listado de proyectos</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>ID</th><th>Nombre</th><th>Docente</th><th>Inicio</th><th>Fin</th><th>Acciones</th></tr>
+                            </thead>
+                            <tbody id="proyectosTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="actividadesSection" class="content-section">
+            <div class="panel-grid">
+                <div class="card">
+                    <h2>Formulario de actividad</h2>
+                    <form id="actividadForm">
+                        <input type="hidden" id="actividadId">
+                        <label>Nombre</label>
+                        <input type="text" id="actividadNombre" required>
+                        <label>Descripción</label>
+                        <textarea id="actividadDescripcion" required></textarea>
+                        <label>Fecha entrega</label>
+                        <input type="date" id="actividadFechaEntrega" required>
+                        <label>Proyecto</label>
+                        <select id="actividadProyecto" required></select>
+                        <div class="form-actions">
+                            <button type="submit">Guardar</button>
+                            <button type="button" class="secondary" onclick="limpiarActividadForm()">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2>Listado de actividades</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>ID</th><th>Nombre</th><th>Proyecto</th><th>Fecha entrega</th><th>Acciones</th></tr>
+                            </thead>
+                            <tbody id="actividadesTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="entregablesSection" class="content-section">
+            <div class="panel-grid">
+                <div class="card">
+                    <h2>Formulario de entregable</h2>
+                    <form id="entregableForm">
+                        <input type="hidden" id="entregableId">
+                        <label>Actividad</label>
+                        <select id="entregableActividad" required></select>
+                        <label>Estudiante</label>
+                        <select id="entregableEstudiante" required></select>
+                        <label>Estado</label>
+                        <select id="entregableEstado" required>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="en progreso">En progreso</option>
+                            <option value="entregado">Entregado</option>
+                        </select>
+                        <label>Fecha subida</label>
+                        <input type="date" id="entregableFechaSubida" required>
+                        <div class="form-actions">
+                            <button type="submit">Guardar</button>
+                            <button type="button" class="secondary" onclick="limpiarEntregableForm()">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2>Listado de entregables</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>ID</th><th>Actividad</th><th>Estudiante</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr>
+                            </thead>
+                            <tbody id="entregablesTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/app.js"></script>
+</body>
+</html>

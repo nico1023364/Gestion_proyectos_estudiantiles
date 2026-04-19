@@ -25,7 +25,7 @@ Nombre sugerido:
 
 Credenciales configuradas en `persistence.xml`:
 - Usuario: `root`
-- Contraseña: `123456`
+- Contraseña: ``
 
 > Si en tu computador usas otras credenciales, solo cambia esos datos en:
 `src/main/resources/META-INF/persistence.xml`
